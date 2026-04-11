@@ -1,0 +1,27 @@
+backend:
+  name: github
+  repo: asociacion-el-roble/pagina-asociacion-roble
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "actas"
+    label: "Actas"
+    folder: "content/actas"
+    create: true
+    fields:
+      - { name: "title", label: "Título", widget: "string" }
+      - { name: "year", label: "Año", widget: "string" }
+      - { name: "file", label: "Archivo", widget: "file" }
+
+  - name: "noticias"
+    label: "Noticias"
+    folder: "content/noticias"
+    create: true
+    fields:
+      - { name: "title", label: "Título", widget: "string" }
+      - { name: "date", label: "Fecha", widget: "datetime" }
+      - { name: "image", label: "Imagen", widget: "image" }
+      - { name: "body", label: "Contenido", widget: "markdown" }
