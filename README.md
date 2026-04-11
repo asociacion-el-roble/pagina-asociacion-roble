@@ -1,73 +1,234 @@
-# React + TypeScript + Vite
+# 🌿 Página Web - Asociación de Desarrollo El Roble
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto web desarrollado para la Asociación de Desarrollo del Barrio El Roble.
 
-Currently, two official plugins are available:
+## 🚀 Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este proyecto es una página web moderna desarrollada con React + Vite, diseñada para:
 
-## React Compiler
+- Mostrar actas organizadas por año
+- Publicar noticias de la comunidad
+- Mostrar galería de imágenes
+- Brindar información de contacto
+- Permitir administración mediante un CMS (Decap CMS)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologías utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React (Vite)
+- TypeScript
+- Tailwind CSS
+- React Router (HashRouter)
+- GitHub Pages (hosting)
+- Decap CMS (panel administrador)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Estructura del proyecto
+asociacion-roble/
+├── content/
+│ ├── actas/
+│ └── noticias/
+├── public/
+│ ├── actas/
+│ ├── galeria/
+│ ├── uploads/
+│ └── admin/
+│ ├── index.html
+│ └── config.yml
+├── src/
+│ ├── components/
+│ ├── pages/
+│ └── App.tsx
+├── dist/ (generado automáticamente)
+├── package.json
+└── vite.config.ts
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Instalación y ejecución local
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 1. Clonar el repositorio
+
+
+git clone https://github.com/asociacion-el-roble/pagina-asociacion-roble.git
+
+cd pagina-asociacion-roble
+
+
+---
+
+### 2. Instalar dependencias
+
+
+npm install
+
+
+---
+
+### 3. Ejecutar en modo desarrollo
+
+
+npm run dev
+
+
+👉 Abrir en navegador:
+
+http://localhost:5173
+
+
+---
+
+## 🏗️ Build de producción
+
+
+npm run build
+
+
+👉 Esto genera la carpeta:
+
+/dist
+
+
+---
+
+## 🌐 Publicación en GitHub Pages
+
+### 1. Configurar base en `vite.config.ts`
+
+
+base: '/pagina-asociacion-roble/'
+
+
+---
+
+### 2. Deploy
+
+
+npm run deploy
+
+
+---
+
+### 3. Configurar GitHub Pages
+
+En el repositorio:
+
+- Settings → Pages
+- Source: Deploy from branch
+- Branch: `gh-pages`
+- Folder: `/ (root)`
+
+---
+
+### 4. Acceder al sitio
+
+
+https://asociacion-el-roble.github.io/pagina-asociacion-roble/
+
+
+---
+
+## 🔐 Panel Administrador (CMS)
+
+### Acceso:
+
+
+https://asociacion-el-roble.github.io/pagina-asociacion-roble/admin/index.html
+
+
+---
+
+### Funcionalidades:
+
+- Crear actas
+- Subir archivos PDF
+- Crear noticias
+- Subir imágenes
+
+---
+
+### Configuración CMS:
+
+Archivo:
+
+
+/public/admin/config.yml
+
+
+---
+
+## 📂 Gestión de archivos
+
+### Actas:
+
+/public/actas/
+
+
+### Imágenes:
+
+/public/galeria/
+
+
+### Subidas del CMS:
+
+/public/uploads/
+
+
+---
+
+## ⚠️ Consideraciones importantes
+
+- Se utiliza `HashRouter` para compatibilidad con GitHub Pages
+- Las rutas deben manejarse con `#/`
+- No usar rutas absolutas del sistema (C:\...)
+- Los nombres de archivos deben ser simples (sin espacios)
+
+---
+
+## 🧓 Diseño UX
+
+Pensado para usuarios adultos mayores:
+
+- Botones grandes
+- Navegación simple
+- Texto claro
+- Diseño limpio
+
+---
+
+## 🚀 Futuras mejoras
+
+- Integración completa del CMS con frontend
+- Sistema automático de actas dinámicas
+- Galería avanzada (zoom, visor)
+- Formulario funcional (email o WhatsApp API)
+- Dominio personalizado
+
+---
+
+## 👨‍💻 Mantenimiento
+
+Para actualizar el proyecto:
+
+1. Hacer cambios en el código
+2. Ejecutar:
+
+
+npm run build
+npm run deploy
+
+
+---
+
+## 📌 Nota
+
+Este proyecto está diseñado para ser fácilmente mantenido por otros desarrolladores en el futuro.
+
+---
+
+## 💼 Autor
+
+Proyecto desarrollado para la Asociación de Desarrollo El Roble.
