@@ -7,21 +7,127 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 collections:
-  - name: "actas"
-    label: "Actas"
-    folder: "content/actas"
-    create: true
-    fields:
-      - { name: "title", label: "Título", widget: "string" }
-      - { name: "year", label: "Año", widget: "string" }
-      - { name: "file", label: "Archivo", widget: "file" }
+  - name: "contenido"
+    label: "Contenido del sitio"
+    files:
+      - name: "site"
+        label: "Textos principales y contacto"
+        file: "public/content/site.json"
+        format: "json"
+        fields:
+          - { name: "title", label: "Nombre de la asociacion", widget: "string" }
+          - { name: "subtitle", label: "Descripcion corta", widget: "text" }
+          - { name: "welcome", label: "Texto de bienvenida", widget: "text" }
+          - { name: "mission", label: "Mision", widget: "text" }
+          - { name: "vision", label: "Vision", widget: "text" }
+          - label: "Valores"
+            name: "values"
+            widget: "list"
+            field: { name: "value", label: "Valor", widget: "string" }
+          - { name: "tcuTitle", label: "Titulo TCU", widget: "string" }
+          - { name: "tcuDescription", label: "Descripcion TCU", widget: "text" }
+          - label: "Contacto"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { name: "address", label: "Direccion", widget: "string" }
+              - { name: "phone", label: "Telefono", widget: "string" }
+              - { name: "email", label: "Correo", widget: "string" }
+              - { name: "whatsapp", label: "WhatsApp con codigo de pais", widget: "string" }
+              - { name: "facebook", label: "Facebook", widget: "string", required: false }
 
-  - name: "noticias"
-    label: "Noticias"
-    folder: "content/noticias"
-    create: true
-    fields:
-      - { name: "title", label: "Título", widget: "string" }
-      - { name: "date", label: "Fecha", widget: "datetime" }
-      - { name: "image", label: "Imagen", widget: "image" }
-      - { name: "body", label: "Contenido", widget: "markdown" }
+      - name: "documentos"
+        label: "Documentos principales"
+        file: "public/content/documentos.json"
+        format: "json"
+        fields:
+          - label: "Estatuto"
+            name: "estatuto"
+            widget: "object"
+            fields:
+              - { name: "title", label: "Titulo", widget: "string" }
+              - { name: "file", label: "PDF", widget: "file", required: false }
+          - label: "Acta Constitutiva"
+            name: "actaConstitutiva"
+            widget: "object"
+            fields:
+              - { name: "title", label: "Titulo", widget: "string" }
+              - { name: "file", label: "PDF", widget: "file", required: false }
+          - label: "Planes de trabajo"
+            name: "planTrabajo"
+            widget: "list"
+            fields:
+              - { name: "title", label: "Titulo", widget: "string" }
+              - { name: "year", label: "Año", widget: "string", required: false }
+              - { name: "file", label: "PDF", widget: "file", required: false }
+
+      - name: "actas"
+        label: "Actas"
+        file: "public/content/actas.json"
+        format: "json"
+        fields:
+          - label: "Actas de Junta Directiva por año"
+            name: "juntaDirectiva"
+            widget: "list"
+            fields:
+              - { name: "year", label: "Año", widget: "string" }
+              - label: "Actas"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Titulo", widget: "string" }
+                  - { name: "date", label: "Fecha o descripcion", widget: "string", required: false }
+                  - { name: "file", label: "PDF", widget: "file", required: false }
+          - label: "Actas de Asamblea General por año"
+            name: "asambleaGeneral"
+            widget: "list"
+            fields:
+              - { name: "year", label: "Año", widget: "string" }
+              - label: "Actas"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Titulo", widget: "string" }
+                  - { name: "date", label: "Fecha o descripcion", widget: "string", required: false }
+                  - { name: "file", label: "PDF", widget: "file", required: false }
+
+      - name: "noticias"
+        label: "Noticias"
+        file: "public/content/noticias.json"
+        format: "json"
+        fields:
+          - label: "Noticias"
+            name: "items"
+            widget: "list"
+            fields:
+              - { name: "title", label: "Titulo", widget: "string" }
+              - { name: "date", label: "Fecha", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+              - { name: "summary", label: "Resumen", widget: "text" }
+              - { name: "image", label: "Imagen", widget: "image" }
+
+      - name: "galeria"
+        label: "Galeria"
+        file: "public/content/galeria.json"
+        format: "json"
+        fields:
+          - label: "Fotos"
+            name: "items"
+            widget: "list"
+            fields:
+              - { name: "title", label: "Titulo", widget: "string" }
+              - { name: "image", label: "Imagen", widget: "image" }
+
+      - name: "calendario"
+        label: "Calendario de actividades"
+        file: "public/content/calendario.json"
+        format: "json"
+        fields:
+          - label: "Actividades"
+            name: "items"
+            widget: "list"
+            fields:
+              - { name: "title", label: "Titulo", widget: "string" }
+              - { name: "date", label: "Fecha", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+              - { name: "time", label: "Hora", widget: "string", required: false }
+              - { name: "place", label: "Lugar", widget: "string", required: false }
+              - { name: "description", label: "Descripcion", widget: "text", required: false }

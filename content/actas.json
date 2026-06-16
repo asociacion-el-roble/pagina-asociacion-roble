@@ -1,0 +1,66 @@
+{
+  "juntaDirectiva": [
+    {
+      "year": "2025",
+      "items": [
+        {
+          "title": "Acta 001-2025",
+          "date": "2025",
+          "file": ""
+        },
+        {
+          "title": "Acta 002-2025",
+          "date": "2025",
+          "file": ""
+        },
+        {
+          "title": "Acta 003-2025",
+          "date": "2025",
+          "file": ""
+        }
+      ]
+    },
+    {
+      "year": "2026",
+      "items": [
+        {
+          "title": "Acta 001-2026",
+          "date": "2026",
+          "file": ""
+        },
+        {
+          "title": "Acta 002-2026",
+          "date": "2026",
+          "file": ""
+        }
+      ]
+    }
+  ],
+  "asambleaGeneral": [
+    {
+      "year": "2025",
+      "items": [
+        {
+          "title": "Acta AG 001-2025",
+          "date": "2025",
+          "file": ""
+        },
+        {
+          "title": "Acta EX 002-2025",
+          "date": "2025",
+          "file": ""
+        }
+      ]
+    },
+    {
+      "year": "2026",
+      "items": [
+        {
+          "title": "Acta AG 001-2026",
+          "date": "2026",
+          "file": ""
+        }
+      ]
+    }
+  ]
+}
