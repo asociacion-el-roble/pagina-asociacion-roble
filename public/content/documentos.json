@@ -1,0 +1,27 @@
+{
+  "estatuto": {
+    "title": "Estatuto",
+    "file": ""
+  },
+  "actaConstitutiva": {
+    "title": "Acta Constitutiva",
+    "file": ""
+  },
+  "planTrabajo": [
+    {
+      "title": "Plan de Trabajo 2024",
+      "year": "2024",
+      "file": ""
+    },
+    {
+      "title": "Plan de Trabajo 2025",
+      "year": "2025",
+      "file": ""
+    },
+    {
+      "title": "Plan de Trabajo 2026",
+      "year": "2026",
+      "file": ""
+    }
+  ]
+}

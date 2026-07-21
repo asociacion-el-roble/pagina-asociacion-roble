@@ -1,234 +1,118 @@
-# 🌿 Página Web - Asociación de Desarrollo El Roble
+# Pagina web ADE El Roble
 
-Proyecto web desarrollado para la Asociación de Desarrollo del Barrio El Roble.
+Sitio web para la Asociacion de Desarrollo del barrio El Roble. Reemplaza la pagina de Google Sites con una experiencia mas profesional, simple para adultos mayores y administrable sin tocar codigo.
 
-## 🚀 Descripción
+## Funciones
 
-Este proyecto es una página web moderna desarrollada con React + Vite, diseñada para:
+- Inicio con informacion comunal.
+- Mision, vision, valores, documentos principales y TCU.
+- Actas separadas por Junta Directiva y Asamblea General.
+- Actas divididas por año.
+- Noticias editables.
+- Galeria de fotos.
+- Calendario de actividades.
+- Contacto con WhatsApp, correo y formulario por email.
+- Panel administrador con Decap CMS.
 
-- Mostrar actas organizadas por año
-- Publicar noticias de la comunidad
-- Mostrar galería de imágenes
-- Brindar información de contacto
-- Permitir administración mediante un CMS (Decap CMS)
+## Tecnologias
 
----
-
-## 🛠️ Tecnologías utilizadas
-
-- React (Vite)
+- React + Vite
 - TypeScript
 - Tailwind CSS
-- React Router (HashRouter)
-- GitHub Pages (hosting)
-- Decap CMS (panel administrador)
+- React Router con HashRouter
+- GitHub Pages
+- Decap CMS
 
----
+## Estructura importante
 
-## 📁 Estructura del proyecto
-asociacion-roble/
-├── content/
-│ ├── actas/
-│ └── noticias/
-├── public/
-│ ├── actas/
-│ ├── galeria/
-│ ├── uploads/
-│ └── admin/
-│ ├── index.html
-│ └── config.yml
-├── src/
-│ ├── components/
-│ ├── pages/
-│ └── App.tsx
-├── dist/ (generado automáticamente)
-├── package.json
-└── vite.config.ts
+```text
+public/
+  admin/
+    index.html
+    config.yml
+  content/
+    actas.json
+    calendario.json
+    documentos.json
+    galeria.json
+    noticias.json
+    site.json
+  uploads/
+src/
+  components/
+  lib/
+  pages/
+  types/
+```
 
+## Ejecucion local
 
----
-
-## ⚙️ Instalación y ejecución local
-
-### 1. Clonar el repositorio
-
-
-git clone https://github.com/asociacion-el-roble/pagina-asociacion-roble.git
-
-cd pagina-asociacion-roble
-
-
----
-
-### 2. Instalar dependencias
-
-
+```bash
 npm install
-
-
----
-
-### 3. Ejecutar en modo desarrollo
-
-
 npm run dev
+```
 
+URL local:
 
-👉 Abrir en navegador:
+```text
+http://127.0.0.1:5173/pagina-asociacion-roble/
+```
 
-http://localhost:5173
+## Build
 
-
----
-
-## 🏗️ Build de producción
-
-
+```bash
 npm run build
+```
 
+## Deploy en GitHub Pages
 
-👉 Esto genera la carpeta:
-
-/dist
-
-
----
-
-## 🌐 Publicación en GitHub Pages
-
-### 1. Configurar base en `vite.config.ts`
-
-
-base: '/pagina-asociacion-roble/'
-
-
----
-
-### 2. Deploy
-
-
+```bash
 npm run deploy
+```
 
+El sitio usa esta base:
 
----
+```ts
+base: "/pagina-asociacion-roble/"
+```
 
-### 3. Configurar GitHub Pages
+## Administracion
 
-En el repositorio:
+La pagina publica no pide login. Las personas visitantes pueden ver actas,
+reuniones, noticias y demas informacion sin iniciar sesion.
 
-- Settings → Pages
-- Source: Deploy from branch
-- Branch: `gh-pages`
-- Folder: `/ (root)`
+Boton de acceso para administradores dentro del sitio:
 
----
+```text
+/#/admin-login
+```
 
-### 4. Acceder al sitio
+Credenciales basicas del acceso visual:
 
+```text
+usuario: admin
+contrasena: Roble2026
+```
 
-https://asociacion-el-roble.github.io/pagina-asociacion-roble/
+Panel directo:
 
+```text
+/admin/index.html
+```
 
----
+El administrador puede editar:
 
-## 🔐 Panel Administrador (CMS)
+- Textos principales y contacto.
+- Documentos principales.
+- Actas por tipo y año.
+- Noticias.
+- Fotos de galeria.
+- Calendario de actividades.
 
-### Acceso:
+Los archivos subidos por el CMS se guardan en:
 
+```text
+public/uploads/
+```
 
-https://asociacion-el-roble.github.io/pagina-asociacion-roble/admin/index.html
-
-
----
-
-### Funcionalidades:
-
-- Crear actas
-- Subir archivos PDF
-- Crear noticias
-- Subir imágenes
-
----
-
-### Configuración CMS:
-
-Archivo:
-
-
-/public/admin/config.yml
-
-
----
-
-## 📂 Gestión de archivos
-
-### Actas:
-
-/public/actas/
-
-
-### Imágenes:
-
-/public/galeria/
-
-
-### Subidas del CMS:
-
-/public/uploads/
-
-
----
-
-## ⚠️ Consideraciones importantes
-
-- Se utiliza `HashRouter` para compatibilidad con GitHub Pages
-- Las rutas deben manejarse con `#/`
-- No usar rutas absolutas del sistema (C:\...)
-- Los nombres de archivos deben ser simples (sin espacios)
-
----
-
-## 🧓 Diseño UX
-
-Pensado para usuarios adultos mayores:
-
-- Botones grandes
-- Navegación simple
-- Texto claro
-- Diseño limpio
-
----
-
-## 🚀 Futuras mejoras
-
-- Integración completa del CMS con frontend
-- Sistema automático de actas dinámicas
-- Galería avanzada (zoom, visor)
-- Formulario funcional (email o WhatsApp API)
-- Dominio personalizado
-
----
-
-## 👨‍💻 Mantenimiento
-
-Para actualizar el proyecto:
-
-1. Hacer cambios en el código
-2. Ejecutar:
-
-
-npm run build
-npm run deploy
-
-
----
-
-## 📌 Nota
-
-Este proyecto está diseñado para ser fácilmente mantenido por otros desarrolladores en el futuro.
-
----
-
-## 💼 Autor
-
-Proyecto desarrollado para la Asociación de Desarrollo El Roble.
+Nota: para usar Decap CMS publicado en internet se debe completar la configuracion de autenticacion con GitHub OAuth o un proveedor gratuito compatible.

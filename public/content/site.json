@@ -1,0 +1,23 @@
+{
+  "title": "Asociacion de Desarrollo El Roble",
+  "subtitle": "Informacion comunal, documentos oficiales, actividades y contacto para el barrio El Roble.",
+  "welcome": "Bienvenidos a ADE Del Roble. Aqui encuentras noticias, eventos, proyectos, actas y documentos importantes de la comunidad.",
+  "mission": "Trabajar por el bienestar comunal de El Roble mediante proyectos, organizacion vecinal y apoyo a iniciativas que mejoren la calidad de vida.",
+  "vision": "Ser una asociacion cercana, transparente y participativa, reconocida por impulsar el desarrollo integral del barrio El Roble.",
+  "values": [
+    "Transparencia",
+    "Servicio comunal",
+    "Participacion",
+    "Respeto",
+    "Responsabilidad"
+  ],
+  "tcuTitle": "Trabajo Comunal Universitario",
+  "tcuDescription": "En ADE del Roble acompaniamos a estudiantes durante su Trabajo Comunal Universitario, brindando orientacion, espacios de apoyo y oportunidades para aportar valor a la comunidad.",
+  "contact": {
+    "address": "Barrio El Roble",
+    "phone": "8888-8888",
+    "email": "asociacionroble@gmail.com",
+    "whatsapp": "50688888888",
+    "facebook": ""
+  }
+}

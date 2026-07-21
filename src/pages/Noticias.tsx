@@ -1,52 +1,73 @@
+import { assetUrl, useContent } from "../lib/content";
+import type { ListContent, NewsItem } from "../types/content";
+
+function formatDate(date: string) {
+  if (!date) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("es-CR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(`${date}T12:00:00`));
+}
+
 function Noticias() {
-  const noticias = [
-    {
-      titulo: "Nueva actividad comunitaria",
-      descripcion: "Se realizará una jornada de limpieza este fin de semana.",
-      fecha: "10 Abril 2026",
-      imagen: "https://via.placeholder.com/400",
-    },
-    {
-      titulo: "Reunión importante",
-      descripcion: "Se convoca a todos los vecinos a reunión general.",
-      fecha: "5 Abril 2026",
-      imagen: "https://via.placeholder.com/400",
-    },
-  ];
+  const { data: noticias } = useContent<ListContent<NewsItem>>(
+    "/content/noticias.json",
+    { items: [] },
+  );
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">Noticias</h1>
+    <main className="min-h-screen bg-slate-50">
+      <section className="bg-emerald-900 px-4 py-12 text-white">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-lg font-semibold text-emerald-100">
+            Avisos comunales
+          </p>
+          <h1 className="mt-2 text-4xl font-bold">Noticias</h1>
+          <p className="mt-4 max-w-3xl text-xl leading-relaxed text-emerald-50">
+            Informacion importante sobre actividades, proyectos y comunicados.
+          </p>
+        </div>
+      </section>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {noticias.map((noticia, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-xl shadow-md overflow-hidden"
-          >
-            <img
-              src={noticia.imagen}
-              alt="noticia"
-              className="w-full h-48 object-cover"
-            />
+      <section className="mx-auto max-w-7xl px-4 py-10">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {noticias.items.map((noticia) => (
+            <article
+              key={`${noticia.title}-${noticia.date}`}
+              className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm"
+            >
+              <img
+                src={assetUrl(noticia.image)}
+                alt={noticia.title}
+                className="h-56 w-full object-cover"
+              />
 
-            <div className="p-4">
-              <h2 className="text-xl font-bold mb-2">
-                {noticia.titulo}
-              </h2>
+              <div className="p-5">
+                <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">
+                  {formatDate(noticia.date)}
+                </p>
+                <h2 className="mt-2 text-2xl font-bold text-slate-950">
+                  {noticia.title}
+                </h2>
+                <p className="mt-3 text-lg leading-relaxed text-slate-600">
+                  {noticia.summary}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
 
-              <p className="text-gray-600 mb-2">
-                {noticia.descripcion}
-              </p>
-
-              <span className="text-sm text-gray-500">
-                {noticia.fecha}
-              </span>
-            </div>
+        {noticias.items.length === 0 && (
+          <div className="rounded-lg bg-white p-6 text-lg text-slate-600 shadow-sm">
+            Todavia no hay noticias publicadas.
           </div>
-        ))}
-      </div>
-    </div>
+        )}
+      </section>
+    </main>
   );
 }
 

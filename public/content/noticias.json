@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "title": "Bienvenidos a ADE Del Roble",
+      "date": "2026-04-10",
+      "summary": "Este sitio reune informacion comunal, noticias, eventos, proyectos y documentos oficiales del barrio El Roble.",
+      "image": "/galeria/foto1.avif"
+    },
+    {
+      "title": "Conectate con tu comunidad",
+      "date": "2026-04-05",
+      "summary": "La asociacion comparte avisos importantes y actividades para que las personas vecinas se mantengan informadas.",
+      "image": "/galeria/foto2.avif"
+    }
+  ]
+}
