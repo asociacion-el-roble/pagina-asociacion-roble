@@ -2,9 +2,190 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Admin Panel</title>
+    <title>Admin ADE El Roble</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+        background: #f8fafc;
+        color: #0f172a;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      .login-page {
+        min-height: 100vh;
+      }
+
+      .hero {
+        background: #064e3b;
+        color: white;
+        padding: 48px 16px;
+      }
+
+      .hero-inner,
+      .content {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        color: #d1fae5;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 38px;
+        margin: 8px 0 0;
+      }
+
+      .hero p:last-child {
+        color: #ecfdf5;
+        font-size: 20px;
+        line-height: 1.55;
+        margin: 16px 0 0;
+      }
+
+      .content {
+        padding: 40px 16px;
+      }
+
+      form {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+        padding: 28px;
+      }
+
+      label {
+        display: block;
+        font-weight: 700;
+        margin-top: 18px;
+      }
+
+      label:first-child {
+        margin-top: 0;
+      }
+
+      input {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        box-sizing: border-box;
+        display: block;
+        font: inherit;
+        font-size: 18px;
+        margin-top: 8px;
+        padding: 12px 14px;
+        width: 100%;
+      }
+
+      button,
+      .public-link {
+        border-radius: 6px;
+        box-sizing: border-box;
+        display: inline-block;
+        font: inherit;
+        font-size: 18px;
+        font-weight: 700;
+        margin-top: 22px;
+        padding: 12px 18px;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      button {
+        background: #047857;
+        border: 0;
+        color: white;
+        cursor: pointer;
+      }
+
+      .public-link {
+        border: 1px solid #cbd5e1;
+        color: #334155;
+        margin-left: 8px;
+      }
+
+      .error {
+        background: #fef2f2;
+        border-radius: 6px;
+        color: #b91c1c;
+        display: none;
+        font-weight: 700;
+        margin: 18px 0 0;
+        padding: 12px 14px;
+      }
+    </style>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <div id="login" class="login-page">
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="eyebrow">Acceso privado</p>
+          <h1>Administrador</h1>
+          <p>
+            Ingrese el usuario y la contrasena para modificar actas, reuniones
+            y contenido del sitio.
+          </p>
+        </div>
+      </section>
+
+      <main class="content">
+        <form id="login-form">
+          <label for="admin-user">Usuario</label>
+          <input id="admin-user" autocomplete="username" />
+
+          <label for="admin-password">Contrasena</label>
+          <input
+            id="admin-password"
+            type="password"
+            autocomplete="current-password"
+          />
+
+          <p id="error" class="error">Usuario o contrasena incorrectos.</p>
+
+          <button type="submit">Entrar al panel admin</button>
+          <a class="public-link" href="../#/actas">Ver actas sin login</a>
+        </form>
+      </main>
+    </div>
+
+    <script>
+      const ADMIN_USER = "admin";
+      const ADMIN_PASSWORD = "Roble2026";
+      const login = document.getElementById("login");
+      const form = document.getElementById("login-form");
+      const error = document.getElementById("error");
+
+      function loadCms() {
+        login.remove();
+        const script = document.createElement("script");
+        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
+        document.body.appendChild(script);
+      }
+
+      if (sessionStorage.getItem("robleAdminAuthed") === "true") {
+        loadCms();
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const user = document.getElementById("admin-user").value.trim();
+        const password = document.getElementById("admin-password").value;
+
+        if (user === ADMIN_USER && password === ADMIN_PASSWORD) {
+          sessionStorage.setItem("robleAdminAuthed", "true");
+          loadCms();
+          return;
+        }
+
+        error.style.display = "block";
+      });
+    </script>
   </body>
 </html>
