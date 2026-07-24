@@ -42,6 +42,8 @@ collections:
         label: "Documentos principales"
         file: "public/content/documentos.json"
         format: "json"
+        editor:
+          preview: false
         fields:
           - label: "Estatuto"
             name: "estatuto"
@@ -67,6 +69,8 @@ collections:
         label: "Actas"
         file: "public/content/actas.json"
         format: "json"
+        editor:
+          preview: false
         fields:
           - label: "Actas de Junta Directiva por año"
             name: "juntaDirectiva"
