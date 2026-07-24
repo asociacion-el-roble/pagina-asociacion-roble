@@ -2,6 +2,8 @@ backend:
   name: github
   repo: asociacion-el-roble/pagina-asociacion-roble
   branch: main
+  base_url: https://ade-roble-decap-oauth.ade-el-roble.workers.dev
+  auth_endpoint: /auth
 
 media_folder: "public/uploads"
 public_folder: "/uploads"

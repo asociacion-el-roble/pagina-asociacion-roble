@@ -115,4 +115,23 @@ Los archivos subidos por el CMS se guardan en:
 public/uploads/
 ```
 
-Nota: para usar Decap CMS publicado en internet se debe completar la configuracion de autenticacion con GitHub OAuth o un proveedor gratuito compatible.
+## Autenticacion real del CMS
+
+La opcion recomendada para este sitio es:
+
+- Mantener GitHub Pages como hosting publico.
+- Usar Decap CMS con backend `github`.
+- Publicar un OAuth proxy gratuito en Cloudflare Workers.
+- Dar permiso de escritura en GitHub a las personas administradoras.
+
+Guia completa:
+
+```text
+docs/decap-github-auth.md
+```
+
+Plantilla del OAuth proxy:
+
+```text
+oauth-proxy/
+```

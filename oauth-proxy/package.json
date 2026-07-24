@@ -1,0 +1,12 @@
+{
+  "name": "ade-roble-decap-oauth",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "login": "wrangler login",
+    "whoami": "wrangler whoami"
+  },
+  "devDependencies": {
+    "wrangler": "^4.43.0"
+  }
+}

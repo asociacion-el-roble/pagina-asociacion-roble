@@ -1,0 +1,39 @@
+name: Publicar sitio
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar sitio
+        run: npm run build
+
+      - name: Publicar en gh-pages
+        run: npm run deploy -- --user "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

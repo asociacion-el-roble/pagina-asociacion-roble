@@ -1,0 +1,8 @@
+name = "ade-roble-decap-oauth"
+main = "worker.js"
+compatibility_date = "2026-07-01"
+
+[vars]
+# Usar "1" si el repositorio es privado. Para repos publicos, dejar "0".
+GITHUB_REPO_PRIVATE = "0"
+
