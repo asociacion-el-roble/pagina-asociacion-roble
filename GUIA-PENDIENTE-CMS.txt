@@ -1,352 +1,356 @@
-GUIA PENDIENTE - ACTIVAR ADMIN REAL CON DECAP CMS Y GITHUB
-Proyecto: Asociacion El Roble
+GUÍA DE OPERACIÓN Y MANTENIMIENTO DEL CMS
+Proyecto: Asociación de Desarrollo El Roble
+Actualizada: 23 de julio de 2026
 
-OBJETIVO
--------
-Hacer que el panel admin pueda guardar cambios reales en GitHub:
 
-1. Editar textos, actas, calendario, noticias, galeria y documentos.
-2. Subir PDFs e imagenes desde el admin.
-3. Guardar esos cambios como commits en el repositorio.
+1. ESTADO ACTUAL
+----------------
+La integración ya está terminada y probada.
 
-IMPORTANTE
-----------
-No usar cuentas personales del estudiante para dejar esto funcionando.
+Funciona:
 
-Lo recomendado es usar un correo de la asociacion, por ejemplo:
+- Sitio público React/Vite en GitHub Pages.
+- Panel administrativo Decap CMS.
+- Inicio de sesión real con GitHub OAuth.
+- OAuth proxy en Cloudflare Workers.
+- Edición de textos, actas, calendario, noticias, galería y documentos.
+- Carga de PDF, DOCX e imágenes.
+- Commits automáticos en la rama main.
+- Compilación y publicación automática en la rama gh-pages.
 
-asociacionelroble@gmail.com
+Prueba realizada:
 
-Con ese correo deberian quedar:
+- Se cargó un archivo DOCX desde Decap.
+- El archivo apareció en public/uploads/.
+- Decap actualizó public/content/documentos.json.
+- GitHub creó el commit correspondiente.
+- GitHub Actions publicó el archivo en el sitio.
 
-- La cuenta de GitHub o la organizacion de GitHub.
-- La cuenta de Cloudflare.
-- La OAuth App de GitHub.
-- La recuperacion de contrasenas.
 
-Asi la asociacion puede mantener el sitio sin depender del estudiante.
-
-
-ESTADO ACTUAL DEL PROYECTO
---------------------------
-Ya existe:
-
-- Sitio React/Vite funcionando.
-- Paginas publicas para actas, calendario, noticias, galeria, informacion y contacto.
-- Panel Decap CMS en:
-
-  public/admin/index.html
-
-- Configuracion de Decap CMS en:
-
-  public/admin/config.yml
-
-- Contenido editable en:
-
-  public/content/
-
-- Carpeta para archivos subidos:
-
-  public/uploads/
-
-- Login visual del admin:
-
-  usuario: admin
-  contrasena: Roble2026
-
-Ese login visual abre el panel, pero la seguridad real y el guardado real dependen de GitHub.
-
-
-LO QUE FALTA
-------------
-Falta conectar Decap CMS con GitHub usando OAuth.
-
-Como el sitio esta pensado para GitHub Pages, se necesita un pequeno servicio externo llamado OAuth proxy.
-
-La opcion recomendada:
-
-- Mantener GitHub Pages.
-- Mantener Decap CMS.
-- Usar GitHub como backend del CMS.
-- Usar Cloudflare Workers para el OAuth proxy.
-
-No es necesario migrar a Vercel solo para esto.
-
-
-PASO 1 - PREPARAR LAS CUENTAS DE LA ASOCIACION
-----------------------------------------------
-1. Crear o definir un correo de la asociacion.
-
-   Ejemplo:
-
-   asociacionelroble@gmail.com
-
-2. Crear o usar una cuenta de GitHub de la asociacion.
-
-3. Crear o usar una cuenta de Cloudflare de la asociacion.
-
-4. Asegurarse de que la cuenta de GitHub tenga permiso de escritura sobre el repo:
-
-   asociacion-el-roble/pagina-asociacion-roble
-
-
-PASO 2 - PUBLICAR EL PROXY EN CLOUDFLARE
-----------------------------------------
-En PowerShell, entrar al proyecto:
-
-cd C:\asociacion_roble\asociacion-roble
-
-Luego entrar a la carpeta del proxy:
-
-cd oauth-proxy
-
-Copiar el archivo de ejemplo:
-
-copy wrangler.toml.example wrangler.toml
-
-Iniciar sesion en Cloudflare:
-
-npx wrangler login
-
-Se abrira el navegador. Iniciar sesion con la cuenta de Cloudflare de la asociacion.
-
-Publicar el worker:
-
-npx wrangler deploy
-
-Cloudflare mostrara una URL parecida a:
-
-https://ade-roble-decap-oauth.TU-USUARIO.workers.dev
-
-Guardar esa URL.
-
-
-PASO 3 - CREAR LA OAUTH APP EN GITHUB
--------------------------------------
-Entrar a GitHub con la cuenta de la asociacion.
-
-Abrir:
-
-https://github.com/settings/developers
-
-Ir a:
-
-OAuth Apps > New OAuth App
-
-Usar estos datos:
-
-Application name:
-ADE El Roble Decap CMS
-
-Homepage URL:
-https://ade-roble-decap-oauth.TU-USUARIO.workers.dev
-
-Authorization callback URL:
-https://ade-roble-decap-oauth.TU-USUARIO.workers.dev/callback
-
-IMPORTANTE:
-Cambiar TU-USUARIO por la URL real que dio Cloudflare.
-
-Al crear la app, GitHub dara:
-
-- Client ID
-- Client Secret
-
-Guardar ambos temporalmente.
-No subir el Client Secret al repositorio.
-
-
-PASO 4 - GUARDAR LOS SECRETOS EN CLOUDFLARE
--------------------------------------------
-En PowerShell, dentro de:
-
-C:\asociacion_roble\asociacion-roble\oauth-proxy
-
-Ejecutar:
-
-npx wrangler secret put GITHUB_OAUTH_ID
-
-Cuando pregunte el valor, pegar el Client ID de GitHub.
-
-Luego ejecutar:
-
-npx wrangler secret put GITHUB_OAUTH_SECRET
-
-Cuando pregunte el valor, pegar el Client Secret de GitHub.
-
-Volver a publicar:
-
-npx wrangler deploy
-
-
-PASO 5 - PROBAR QUE EL PROXY FUNCIONA
--------------------------------------
-Abrir en el navegador:
-
-https://ade-roble-decap-oauth.TU-USUARIO.workers.dev
-
-Debe verse algo como:
-
-Decap OAuth proxy activo.
-
-Si aparece eso, el proxy esta vivo.
-
-
-PASO 6 - ACTIVAR EL PROXY EN DECAP CMS
---------------------------------------
-Abrir este archivo:
-
-public/admin/config.yml
-
-Arriba debe estar esto:
-
-backend:
-  name: github
-  repo: asociacion-el-roble/pagina-asociacion-roble
-  branch: main
-  # base_url: https://TU-PROXY.workers.dev
-  # auth_endpoint: /auth
-
-Cambiarlo a esto, usando la URL real:
-
-backend:
-  name: github
-  repo: asociacion-el-roble/pagina-asociacion-roble
-  branch: main
-  base_url: https://ade-roble-decap-oauth.TU-USUARIO.workers.dev
-  auth_endpoint: /auth
-
-O sea:
-
-- Quitar los #.
-- Cambiar TU-PROXY por la URL real de Cloudflare.
-
-
-PASO 7 - COMPILAR EL SITIO
---------------------------
-Volver a la carpeta principal:
-
-cd C:\asociacion_roble\asociacion-roble
-
-Ejecutar:
-
-npm run build
-
-Si termina con:
-
-built
-
-entonces compilo bien.
-
-
-PASO 8 - PUBLICAR EN GITHUB PAGES
----------------------------------
-Ejecutar:
-
-npm run deploy
-
-Eso sube el sitio compilado a GitHub Pages.
-
-
-PASO 9 - PROBAR EL ADMIN PUBLICADO
-----------------------------------
-Abrir el sitio publicado, por ejemplo:
+2. URLS IMPORTANTES
+-------------------
+Sitio público:
 
 https://asociacion-el-roble.github.io/pagina-asociacion-roble/
 
-Entrar al admin:
+Acceso administrativo:
 
 https://asociacion-el-roble.github.io/pagina-asociacion-roble/#/admin-login
 
-Usar:
+Panel directo:
 
-usuario: admin
-contrasena: Roble2026
+https://asociacion-el-roble.github.io/pagina-asociacion-roble/admin/
 
-Luego el sitio abre Decap CMS.
+Repositorio:
 
-Decap debe mostrar:
+https://github.com/asociacion-el-roble/pagina-asociacion-roble
 
-Login with GitHub
-
-Dar clic e iniciar sesion con la cuenta GitHub autorizada.
-
-
-PASO 10 - HACER UNA PRUEBA REAL
--------------------------------
-Dentro de Decap CMS:
-
-1. Entrar a Calendario de actividades.
-2. Cambiar una palabra o agregar una actividad de prueba.
-3. Guardar.
-4. Esperar unos segundos.
-
-Luego revisar GitHub:
+Commits de contenido:
 
 https://github.com/asociacion-el-roble/pagina-asociacion-roble/commits/main
 
-Debe aparecer un commit nuevo.
+Ejecuciones automáticas:
 
-Esa es la prueba principal de que el CMS ya guarda cambios reales.
+https://github.com/asociacion-el-roble/pagina-asociacion-roble/actions
+
+OAuth proxy:
+
+https://ade-roble-decap-oauth.ade-el-roble.workers.dev
+
+El proxy debe mostrar:
+
+Decap OAuth proxy activo.
 
 
-DONDE REVISAR QUE TODO ESTA BIEN
+3. CUENTAS Y RESPONSABILIDAD
+---------------------------
+GitHub y Cloudflare deben permanecer bajo una cuenta institucional de la
+asociación. No deben depender de la cuenta personal de un estudiante.
+
+La cuenta GitHub que administra contenido necesita permiso de escritura en:
+
+asociacion-el-roble/pagina-asociacion-roble
+
+No guardar contraseñas, tokens, Client Secret ni códigos de recuperación en
+este archivo o en el repositorio.
+
+
+4. CÓMO ENTRAR AL ADMINISTRADOR
+-------------------------------
+1. Abrir la URL de acceso administrativo.
+2. Escribir el usuario y la contraseña visual entregados a la asociación.
+3. El sitio abrirá Decap CMS.
+4. Pulsar "Login with GitHub".
+5. Iniciar sesión con la cuenta GitHub autorizada.
+6. Aceptar la OAuth App si GitHub vuelve a solicitar permiso.
+
+El login visual no es la seguridad principal. GitHub determina quién puede
+guardar cambios reales.
+
+
+5. CÓMO EDITAR CONTENIDO
+------------------------
+En "Contenido del sitio" se puede abrir:
+
+- Textos principales y contacto.
+- Documentos principales.
+- Actas.
+- Noticias.
+- Galería.
+- Calendario de actividades.
+
+Después de editar:
+
+1. Revisar los datos.
+2. Pulsar guardar o publicar.
+3. Esperar a que Decap confirme.
+4. GitHub creará un commit en main.
+5. GitHub Actions compilará y actualizará gh-pages.
+6. El cambio aparecerá en el sitio público normalmente en uno o dos minutos.
+
+Si el navegador mantiene una versión anterior, usar Ctrl + Shift + R.
+
+
+6. CÓMO SUBIR UN DOCUMENTO
+--------------------------
+1. Entrar a Documentos principales o Actas.
+2. Escribir un título claro.
+3. Pulsar el campo de archivo.
+4. Seleccionar el PDF o DOCX.
+5. Guardar o publicar.
+6. Esperar el commit y el despliegue.
+7. Abrir la página pública y probar el enlace.
+
+Los archivos quedan en:
+
+public/uploads/
+
+Evitar nombres excesivamente largos. Aunque las tildes funcionan, para máxima
+compatibilidad se recomiendan nombres sencillos como:
+
+acta-junta-2026-07.pdf
+
+
+7. CÓMO EDITAR WHATSAPP Y REDES SOCIALES
+----------------------------------------
+Abrir:
+
+Contenido del sitio > Textos principales y contacto
+
+Campos disponibles:
+
+- Dirección.
+- Teléfono.
+- Correo.
+- WhatsApp con código de país.
+- Enlace de Facebook.
+- Enlace de Instagram.
+- Enlace de YouTube.
+- Enlace de TikTok.
+
+Ejemplo de WhatsApp de Costa Rica:
+
+50688888888
+
+El sitio elimina automáticamente espacios, guiones y paréntesis antes de crear
+el enlace de WhatsApp.
+
+Las redes sociales vacías no se muestran en la página pública.
+
+Pendiente antes de la entrega final:
+
+- Sustituir el WhatsApp 50688888888 por el número real.
+- Sustituir el teléfono 8888-8888.
+- Confirmar correo y dirección.
+- Agregar las URL públicas reales de las redes sociales.
+
+
+8. FLUJO AUTOMÁTICO DE PUBLICACIÓN
+----------------------------------
+El contenido no requiere ejecutar npm run deploy manualmente.
+
+Flujo:
+
+Decap CMS
+  -> commit en main
+  -> .github/workflows/deploy.yml
+  -> npm ci
+  -> npm run build
+  -> publicación en gh-pages
+  -> GitHub Pages
+
+Si un cambio aparece en GitHub pero no en el sitio, revisar:
+
+https://github.com/asociacion-el-roble/pagina-asociacion-roble/actions
+
+La ejecución "Publicar sitio" debe terminar en verde con "success".
+
+
+9. COMPONENTES QUE NO SE DEBEN BORRAR
+-------------------------------------
+No borrar:
+
+- Worker de Cloudflare: ade-roble-decap-oauth
+- Subdominio workers.dev: ade-el-roble.workers.dev
+- OAuth App de GitHub: ADE El Roble Decap CMS
+- Secretos GITHUB_OAUTH_ID y GITHUB_OAUTH_SECRET
+- Archivo public/admin/config.yml
+- Archivo public/admin/index.html
+- Workflow .github/workflows/deploy.yml
+- Rama main
+- Rama gh-pages
+
+Si se elimina alguno, el CMS o la publicación pueden dejar de funcionar.
+
+
+10. CONFIGURACIÓN TÉCNICA ACTUAL
 --------------------------------
-1. Proxy de Cloudflare:
+Backend Decap:
 
-   https://ade-roble-decap-oauth.TU-USUARIO.workers.dev
+backend:
+  name: github
+  repo: asociacion-el-roble/pagina-asociacion-roble
+  branch: main
+  base_url: https://ade-roble-decap-oauth.ade-el-roble.workers.dev
+  auth_endpoint: /auth
 
-   Debe decir:
+Carpeta de archivos:
 
-   Decap OAuth proxy activo.
+media_folder: public/uploads
+public_folder: /uploads
 
-2. Configuracion de Decap:
+Worker:
 
-   public/admin/config.yml
+oauth-proxy/
 
-   Debe tener activas estas lineas:
+Variables del Worker:
 
-   base_url: https://ade-roble-decap-oauth.TU-USUARIO.workers.dev
-   auth_endpoint: /auth
+GITHUB_REPO_PRIVATE = 0
 
-3. Admin publicado:
+Secretos del Worker:
 
-   https://asociacion-el-roble.github.io/pagina-asociacion-roble/#/admin-login
+GITHUB_OAUTH_ID
+GITHUB_OAUTH_SECRET
 
-   Debe abrir el login visual y despues Decap CMS.
-
-4. GitHub:
-
-   https://github.com/asociacion-el-roble/pagina-asociacion-roble/commits/main
-
-   Despues de guardar desde Decap, debe aparecer un commit nuevo.
-
-5. Archivos subidos:
-
-   Los PDFs e imagenes subidos desde el CMS deben aparecer en:
-
-   public/uploads/
-
-6. Contenido editado:
-
-   Los cambios de actas, calendario, noticias, galeria e informacion deben aparecer en:
-
-   public/content/
+Los valores de los secretos nunca se escriben en el repositorio.
 
 
-NOTAS PARA LA ENTREGA
----------------------
-Entregar a la asociacion:
+11. VERSIÓN FIJA DE DECAP
+-------------------------
+El panel usa:
 
-- URL del sitio publico.
-- URL del admin.
-- Usuario y contrasena visual del admin.
-- Correo duenio de GitHub y Cloudflare.
-- Instrucciones basicas para subir actas y editar calendario.
-- Advertencia de no borrar el worker de Cloudflare.
-- Advertencia de no borrar la OAuth App de GitHub.
+decap-cms@3.12.2
 
-Recordatorio:
-El login visual admin / Roble2026 no es la seguridad principal.
-La seguridad real es GitHub: solo quien tenga permiso de escritura en el repo podra guardar cambios reales.
+No cambiarlo a:
+
+decap-cms@^3.0.0
+
+Motivo:
+
+El 23 de julio de 2026 el rango flotante empezó a resolver a Decap 3.15.0. Esa
+versión produjo "Minified React error #130" al mostrar la vista previa después
+de cargar un DOCX. El archivo sí se guardaba, pero el panel mostraba error.
+
+La solución aplicada:
+
+- Fijar Decap en 3.12.2.
+- Desactivar la vista previa genérica en documentos y actas.
+
+Antes de actualizar Decap en el futuro, probar:
+
+- Inicio de sesión.
+- Edición de texto.
+- Carga de PDF.
+- Carga de DOCX.
+- Carga de imagen.
+- Guardado y commit.
+
+
+12. MANTENIMIENTO DEL WORKER
+----------------------------
+Desde PowerShell:
+
+cd C:\asociacion_roble\asociacion-roble\oauth-proxy
+npm install
+npm run whoami
+npm run deploy
+
+Para renovar secretos:
+
+npx wrangler secret put GITHUB_OAUTH_ID
+npx wrangler secret put GITHUB_OAUTH_SECRET
+npm run deploy
+
+No pegar los valores en archivos ni en mensajes.
+
+
+13. RECUPERACIÓN DE PROBLEMAS
+-----------------------------
+Problema: Decap no muestra Login with GitHub.
+
+- Comprobar public/admin/config.yml.
+- Confirmar base_url y auth_endpoint.
+- Recargar con Ctrl + Shift + R.
+
+Problema: El proxy muestra Missing GitHub OAuth secrets.
+
+- Revisar los secretos del Worker en Cloudflare.
+- Confirmar los nombres exactos.
+- Volver a desplegar el Worker.
+
+Problema: GitHub muestra callback incorrecto.
+
+- Revisar la OAuth App.
+- Callback correcto:
+  https://ade-roble-decap-oauth.ade-el-roble.workers.dev/callback
+
+Problema: El archivo se guardó pero Decap muestra React error #130.
+
+- Confirmar que public/admin/index.html usa Decap 3.12.2.
+- Recargar el navegador con Ctrl + Shift + R.
+
+Problema: El commit existe, pero el sitio no cambia.
+
+- Revisar GitHub Actions.
+- Confirmar que "Publicar sitio" terminó correctamente.
+- Esperar la actualización de GitHub Pages.
+- Recargar sin caché.
+
+
+14. VALIDACIÓN LOCAL
+--------------------
+Desde la raíz del proyecto:
+
+npm install
+npm run build
+npx eslint .
+
+Publicación manual de emergencia:
+
+npm run deploy
+
+La publicación normal debe realizarse automáticamente con GitHub Actions.
+
+
+15. LISTA DE ENTREGA
+--------------------
+Entregar a la asociación:
+
+- URL pública.
+- URL administrativa.
+- Credenciales del acceso visual por un canal privado.
+- Control del correo institucional.
+- Acceso a GitHub.
+- Acceso a Cloudflare.
+- Códigos de recuperación en un lugar seguro.
+- Esta guía.
+
+Confirmar antes de cerrar el proyecto:
+
+- WhatsApp real.
+- Teléfono real.
+- Correo real.
+- Dirección real.
+- Redes sociales reales.
+- Eliminar o reemplazar el documento de prueba si no corresponde al Estatuto.
 

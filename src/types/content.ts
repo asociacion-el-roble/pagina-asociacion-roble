@@ -9,6 +9,9 @@ export type ContactInfo = {
   email: string;
   whatsapp: string;
   facebook?: string;
+  instagram?: string;
+  youtube?: string;
+  tiktok?: string;
 };
 
 export type SiteContent = {

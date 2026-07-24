@@ -21,7 +21,19 @@ const fallback: SiteContent = {
 function Contacto() {
   const { data: site } = useContent<SiteContent>("/content/site.json", fallback);
   const { contact } = site;
-  const whatsappUrl = `https://wa.me/${contact.whatsapp}?text=Hola%20quiero%20informacion%20sobre%20ADE%20El%20Roble`;
+  const whatsappNumber = contact.whatsapp.replace(/\D/g, "");
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Hola, quiero información sobre ADE El Roble.",
+  )}`;
+  const socialLinks = [
+    { label: "Facebook", url: contact.facebook },
+    { label: "Instagram", url: contact.instagram },
+    { label: "YouTube", url: contact.youtube },
+    { label: "TikTok", url: contact.tiktok },
+  ].filter(
+    (social): social is { label: string; url: string } =>
+      Boolean(social.url?.trim()),
+  );
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -57,14 +69,37 @@ function Contacto() {
             </p>
           </div>
 
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 block rounded-md bg-emerald-700 px-6 py-4 text-center text-lg font-bold text-white transition hover:bg-emerald-800"
-          >
-            Contactar por WhatsApp
-          </a>
+          {whatsappNumber && (
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 block rounded-md bg-emerald-700 px-6 py-4 text-center text-lg font-bold text-white transition hover:bg-emerald-800"
+            >
+              Contactar por WhatsApp
+            </a>
+          )}
+
+          {socialLinks.length > 0 && (
+            <div className="mt-8 border-t border-slate-200 pt-6">
+              <h3 className="text-xl font-bold text-slate-950">
+                Redes sociales
+              </h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-md border border-emerald-700 px-4 py-3 text-center font-bold text-emerald-800 transition hover:bg-emerald-50"
+                  >
+                    {social.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </aside>
 
         <form

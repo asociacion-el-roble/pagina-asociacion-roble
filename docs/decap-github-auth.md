@@ -9,6 +9,18 @@ La opcion recomendada para este proyecto es mantener GitHub Pages como hosting p
 - Usa el backend oficial `github` de Decap.
 - Requiere que cada persona administradora tenga cuenta de GitHub con permiso de escritura en `asociacion-el-roble/pagina-asociacion-roble`.
 
+## Estado actual
+
+La integración está activa:
+
+```text
+Worker: https://ade-roble-decap-oauth.ade-el-roble.workers.dev
+Callback: https://ade-roble-decap-oauth.ade-el-roble.workers.dev/callback
+Repositorio: asociacion-el-roble/pagina-asociacion-roble
+Rama de contenido: main
+Rama publicada: gh-pages
+```
+
 ## Flujo final
 
 1. La persona entra a `/#/admin-login`.
@@ -17,7 +29,7 @@ La opcion recomendada para este proyecto es mantener GitHub Pages como hosting p
 4. Decap muestra "Login with GitHub".
 5. GitHub autoriza mediante el OAuth proxy.
 6. Decap guarda cambios y archivos en el repositorio.
-7. GitHub Pages publica el sitio despues del deploy.
+7. GitHub Actions compila y publica automáticamente en `gh-pages`.
 
 ## 1. Crear OAuth App en GitHub
 
@@ -31,8 +43,8 @@ Usar estos valores:
 
 ```text
 Application name: ADE El Roble Decap CMS
-Homepage URL: https://TU-PROXY.workers.dev
-Authorization callback URL: https://TU-PROXY.workers.dev/callback
+Homepage URL: https://ade-roble-decap-oauth.ade-el-roble.workers.dev
+Authorization callback URL: https://ade-roble-decap-oauth.ade-el-roble.workers.dev/callback
 ```
 
 Guardar:
@@ -52,11 +64,11 @@ Hay una plantilla local en:
 oauth-proxy/
 ```
 
-Copiar el ejemplo:
+Instalar las dependencias:
 
 ```bash
 cd oauth-proxy
-copy wrangler.toml.example wrangler.toml
+npm install
 ```
 
 Editar `wrangler.toml` si se desea cambiar el nombre del worker o usar dominio propio.
@@ -64,7 +76,7 @@ Editar `wrangler.toml` si se desea cambiar el nombre del worker o usar dominio p
 Iniciar sesion en Cloudflare y guardar secretos:
 
 ```bash
-npx wrangler login
+npm run login
 npx wrangler secret put GITHUB_OAUTH_ID
 npx wrangler secret put GITHUB_OAUTH_SECRET
 ```
@@ -74,36 +86,38 @@ Si el repositorio se vuelve privado, cambiar `GITHUB_REPO_PRIVATE` a `"1"` en `w
 Publicar:
 
 ```bash
-npx wrangler deploy
+npm run deploy
 ```
 
 Al final Cloudflare mostrara una URL similar a:
 
 ```text
-https://ade-roble-decap-oauth.NOMBRE.workers.dev
+https://ade-roble-decap-oauth.ade-el-roble.workers.dev
 ```
 
 Esa sera la URL del proxy.
 
 ## 3. Activar el proxy en Decap
 
-En `public/admin/config.yml`, descomentar y completar:
+La configuración activa en `public/admin/config.yml` es:
 
 ```yaml
 backend:
   name: github
   repo: asociacion-el-roble/pagina-asociacion-roble
   branch: main
-  base_url: https://TU-PROXY.workers.dev
+  base_url: https://ade-roble-decap-oauth.ade-el-roble.workers.dev
   auth_endpoint: /auth
 ```
 
-Luego compilar y desplegar:
+Cada push o commit creado por Decap en `main` ejecuta:
 
-```bash
-npm run build
-npm run deploy
+```text
+.github/workflows/deploy.yml
 ```
+
+El workflow compila el sitio y actualiza `gh-pages`. `npm run deploy` queda
+disponible solamente para una publicación manual de emergencia.
 
 ## 4. Permisos de GitHub
 
@@ -121,4 +135,3 @@ Si se quiere que usuarios sin GitHub editen contenido, habria que usar otro serv
 6. Guardar.
 7. Confirmar que aparece un commit nuevo en GitHub.
 8. Confirmar que el sitio publicado muestra el cambio.
-

@@ -35,8 +35,11 @@ collections:
               - { name: "address", label: "Direccion", widget: "string" }
               - { name: "phone", label: "Telefono", widget: "string" }
               - { name: "email", label: "Correo", widget: "string" }
-              - { name: "whatsapp", label: "WhatsApp con codigo de pais", widget: "string" }
-              - { name: "facebook", label: "Facebook", widget: "string", required: false }
+              - { name: "whatsapp", label: "WhatsApp con codigo de pais (ej. 50688888888)", widget: "string" }
+              - { name: "facebook", label: "Enlace de Facebook", widget: "string", required: false }
+              - { name: "instagram", label: "Enlace de Instagram", widget: "string", required: false }
+              - { name: "youtube", label: "Enlace de YouTube", widget: "string", required: false }
+              - { name: "tiktok", label: "Enlace de TikTok", widget: "string", required: false }
 
       - name: "documentos"
         label: "Documentos principales"
