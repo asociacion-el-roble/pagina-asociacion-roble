@@ -22,7 +22,10 @@ export function useContent<T>(path: string, fallback: T) {
   useEffect(() => {
     let active = true;
 
-    fetch(assetUrl(path))
+    const contentUrl = new URL(assetUrl(path), window.location.href);
+    contentUrl.searchParams.set("v", Date.now().toString());
+
+    fetch(contentUrl, { cache: "no-store" })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`No se pudo cargar ${path}`);
