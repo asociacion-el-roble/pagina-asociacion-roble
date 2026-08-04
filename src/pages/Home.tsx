@@ -53,7 +53,9 @@ function Home() {
     { items: [] },
   );
 
-  const latestNews = news.items.slice(0, 2);
+  const latestNews = [...news.items]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 2);
   const nextEvents = events.items.slice(0, 2);
 
   return (

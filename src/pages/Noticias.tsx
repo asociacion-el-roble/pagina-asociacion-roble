@@ -18,6 +18,9 @@ function Noticias() {
     "/content/noticias.json",
     { items: [] },
   );
+  const orderedNews = [...noticias.items].sort((a, b) =>
+    b.date.localeCompare(a.date),
+  );
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -35,7 +38,7 @@ function Noticias() {
 
       <section className="mx-auto max-w-7xl px-4 py-10">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {noticias.items.map((noticia) => (
+          {orderedNews.map((noticia) => (
             <article
               key={`${noticia.title}-${noticia.date}`}
               className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm"
