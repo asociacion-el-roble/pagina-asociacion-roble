@@ -1,223 +1,133 @@
 # Página web de la Asociación de Desarrollo El Roble
 
-Sitio público y sistema de administración de contenido para la Asociación de Desarrollo El Roble. Está pensado para presentar información comunal de forma sencilla y permitir que la asociación actualice el contenido sin modificar código.
+Sitio público y sistema de administración de contenido para ADE El Roble. La asociación puede actualizar textos, documentos, actas, noticias, imágenes, videos y actividades desde un panel web, sin modificar código ni ejecutar comandos.
 
-## Estado del proyecto
+## Estado
 
-El sitio está publicado y el CMS está conectado de extremo a extremo:
+El proyecto está terminado y publicado. El flujo completo fue probado con cambios reales creados desde el CMS:
 
-- Sitio público en GitHub Pages.
-- Panel Decap CMS autenticado con GitHub.
-- OAuth proxy publicado en Cloudflare Workers.
-- Ediciones y archivos guardados como commits en `main`.
-- Compilación y publicación automática en `gh-pages` mediante GitHub Actions.
-- Carga real de documentos verificada con un archivo DOCX.
+- Decap CMS guarda los cambios como commits en `main`.
+- GitHub Actions compila el proyecto automáticamente.
+- El resultado se publica en `gh-pages` y GitHub Pages.
+- Los archivos subidos se guardan en `public/uploads/`.
+- El sitio consulta el contenido sin caché, al abrir la página, al volver a la pestaña y cada 30 segundos.
+- Las noticias se muestran de la más reciente a la más antigua.
 
-## URLs
+La publicación normalmente tarda entre 1 y 3 minutos después de guardar en Admin. No es necesario ejecutar `npm run deploy` ni solicitar una revisión técnica.
 
-Sitio público:
+## Enlaces
 
-```text
-https://asociacion-el-roble.github.io/pagina-asociacion-roble/
-```
+- Sitio público: <https://asociacion-el-roble.github.io/pagina-asociacion-roble/>
+- Administrador: <https://asociacion-el-roble.github.io/pagina-asociacion-roble/#/admin-login>
+- Panel directo: <https://asociacion-el-roble.github.io/pagina-asociacion-roble/admin/>
+- Repositorio: <https://github.com/asociacion-el-roble/pagina-asociacion-roble>
+- Historial: <https://github.com/asociacion-el-roble/pagina-asociacion-roble/commits/main>
+- Publicaciones automáticas: <https://github.com/asociacion-el-roble/pagina-asociacion-roble/actions>
+- OAuth proxy: <https://ade-roble-decap-oauth.ade-el-roble.workers.dev>
 
-Acceso administrativo:
+## Uso del administrador
 
-```text
-https://asociacion-el-roble.github.io/pagina-asociacion-roble/#/admin-login
-```
+1. Abrir el enlace **Administrador**.
+2. Ingresar las credenciales visuales entregadas a la asociación.
+3. Seleccionar **Login with GitHub**.
+4. Iniciar sesión con una cuenta de GitHub con permiso de escritura sobre `asociacion-el-roble/pagina-asociacion-roble`.
+5. Abrir una sección, editarla y pulsar **Guardar** o **Publicar**.
+6. Esperar entre 1 y 3 minutos y abrir la página pública.
 
-Panel directo:
+El panel permite administrar:
 
-```text
-https://asociacion-el-roble.github.io/pagina-asociacion-roble/admin/
-```
+- Textos principales, misión, visión, valores y TCU.
+- Dirección, teléfono, correo, WhatsApp y redes sociales.
+- Estatuto, Acta Constitutiva y planes de trabajo.
+- Actas de Junta Directiva y Asamblea General por año.
+- Noticias e imágenes.
+- Galería de fotografías y videos de Google Drive.
+- Calendario de reuniones y actividades.
 
-OAuth proxy:
+Para agregar elementos a una lista, se usa **Agregar**. Para eliminarlos, se abre el elemento y se usa la opción de quitar; luego se guarda la colección completa.
 
-```text
-https://ade-roble-decap-oauth.ade-el-roble.workers.dev
-```
+## Archivos y videos
 
-Repositorio:
-
-```text
-https://github.com/asociacion-el-roble/pagina-asociacion-roble
-```
-
-## Funciones públicas
-
-- Inicio e información comunal.
-- Misión, visión, valores y TCU.
-- Documentos principales y planes de trabajo.
-- Actas de Junta Directiva y Asamblea General, separadas por año.
-- Noticias.
-- Galería de imágenes.
-- Calendario de actividades.
-- Página de contacto con correo y WhatsApp.
-- Enlaces opcionales para Facebook, Instagram, YouTube y TikTok.
-
-Las redes sociales sin URL no se muestran.
-
-## Administración de contenido
-
-El panel permite editar:
-
-- Textos principales y datos de contacto.
-- Documentos principales.
-- Actas.
-- Noticias.
-- Galería.
-- Calendario.
-- WhatsApp y enlaces de redes sociales.
-
-El contenido se encuentra en:
-
-```text
-public/content/
-```
-
-Los archivos cargados desde Decap se guardan en:
+Los PDF, DOCX e imágenes cargados desde el CMS quedan en:
 
 ```text
 public/uploads/
 ```
 
-Cuando una persona autorizada pulsa guardar en Decap:
+Se recomiendan nombres sencillos, por ejemplo `acta-junta-2026-07.pdf`.
 
-1. GitHub recibe un commit en `main`.
-2. El workflow `.github/workflows/deploy.yml` instala dependencias.
-3. Vite compila el sitio.
-4. El resultado se publica en `gh-pages`.
-5. GitHub Pages actualiza el sitio público.
+Los videos se mantienen en Google Drive para evitar aumentar el repositorio. Cada video debe estar como **Cualquier persona con el enlace — Lector**. En **Galería → Videos** se registra un título y el enlace público de Drive.
+
+Los documentos externos de Drive también deben tener acceso público. Si un acta solicita permiso, se debe cambiar su acceso en Google Drive o subir el archivo directamente desde el CMS.
+
+## Publicación automática
+
+```text
+Decap CMS
+  → commit en main
+  → GitHub Actions: Publicar sitio
+  → npm ci y npm run build
+  → rama gh-pages
+  → GitHub Pages
+  → actualización automática en el navegador
+```
+
+La configuración está en `.github/workflows/deploy.yml`. Cada cambio en `main` inicia el proceso automáticamente.
 
 ## Autenticación y seguridad
 
-El acceso tiene dos capas:
+El acceso visual es una primera barrera, pero la autorización real depende de GitHub OAuth. Solo las cuentas con permiso de escritura pueden guardar cambios.
 
-1. Un acceso visual que abre el panel administrativo.
-2. Autenticación real mediante GitHub OAuth.
-
-La seguridad real depende de GitHub. Solo una cuenta con permiso de escritura sobre el repositorio puede guardar cambios.
-
-No se almacenan secretos en el repositorio. Las variables `GITHUB_OAUTH_ID` y `GITHUB_OAUTH_SECRET` están guardadas como secretos del Worker en Cloudflare.
-
-No se deben eliminar:
+No se deben borrar:
 
 - El Worker `ade-roble-decap-oauth`.
 - La OAuth App `ADE El Roble Decap CMS`.
-- Los secretos del Worker.
-- El workflow de publicación.
-- La rama `gh-pages`.
+- Los secretos `GITHUB_OAUTH_ID` y `GITHUB_OAUTH_SECRET` del Worker.
+- `public/admin/config.yml` y `public/admin/index.html`.
+- `.github/workflows/deploy.yml`.
+- Las ramas `main` y `gh-pages`.
 
-Las credenciales del acceso visual se entregan por separado a las personas responsables y no deben considerarse la protección principal.
+No se deben guardar tokens, secretos, códigos de recuperación ni contraseñas institucionales en el repositorio.
 
-## Detalle importante de Decap
+El panel usa `decap-cms@3.12.2`. Esta versión está fijada porque una versión posterior produjo un error de React en la vista previa de archivos generales. Antes de actualizarla se deben probar el login, la edición y la carga de PDF, DOCX e imágenes.
 
-El panel carga una versión fija de Decap CMS:
+## Si un cambio no aparece
 
-```text
-3.12.2
-```
-
-Se fijó esta versión porque `3.15.0`, publicada el 23 de julio de 2026, provocaba un error de React al mostrar la vista previa de archivos generales como DOCX. También se desactivó la vista previa genérica en documentos y actas; esto no afecta la carga ni la descarga de archivos.
-
-No cambiar nuevamente a una versión flotante como `@^3.0.0` sin probar antes la carga de PDF, DOCX e imágenes.
-
-## Tecnologías
-
-- React
-- Vite
-- TypeScript
-- Tailwind CSS
-- React Router con `HashRouter`
-- Decap CMS
-- GitHub OAuth
-- Cloudflare Workers
-- GitHub Actions
-- GitHub Pages
-
-## Estructura principal
-
-```text
-.github/workflows/deploy.yml  Publicación automática
-oauth-proxy/                  Worker OAuth de Cloudflare
-public/admin/                 Panel y configuración de Decap
-public/content/               Contenido editable
-public/uploads/               Archivos cargados desde el CMS
-src/components/               Componentes compartidos
-src/lib/                      Lectura del contenido
-src/pages/                    Páginas públicas
-src/types/                    Tipos TypeScript
-```
+1. Confirmar que Decap mostró el guardado exitoso.
+2. Abrir [GitHub Actions](https://github.com/asociacion-el-roble/pagina-asociacion-roble/actions).
+3. Verificar que **Publicar sitio** y **pages build and deployment** terminaron en verde.
+4. Esperar hasta 3 minutos. La página abierta se actualiza al recuperar el foco o, como máximo, en 30 segundos después de que GitHub Pages termine.
+5. Si solo un documento de Drive solicita permiso, corregir el acceso del archivo en Drive.
 
 ## Desarrollo local
 
-Requisitos:
-
-- Node.js 22
-- npm
-
-Instalación y servidor local:
+Requisitos: Node.js 22 y npm.
 
 ```bash
 npm install
 npm run dev
 ```
 
-URL local:
-
-```text
-http://127.0.0.1:5173/pagina-asociacion-roble/
-```
-
-Validaciones:
+Validación:
 
 ```bash
 npm run build
 npx eslint .
 ```
 
-Publicación manual de emergencia:
+La publicación manual `npm run deploy` se reserva para recuperación; el funcionamiento normal utiliza GitHub Actions.
 
-```bash
-npm run deploy
-```
-
-Normalmente no es necesario publicar manualmente porque cada push a `main` ejecuta GitHub Actions.
-
-## Mantenimiento del OAuth proxy
-
-```bash
-cd oauth-proxy
-npm install
-npm run whoami
-npm run deploy
-```
-
-Los secretos se administran desde Cloudflare o con:
-
-```bash
-npx wrangler secret put GITHUB_OAUTH_ID
-npx wrangler secret put GITHUB_OAUTH_SECRET
-```
-
-Nunca se deben pegar secretos en documentación, commits, capturas o conversaciones.
-
-## Trabajo pendiente
-
-- Sustituir el teléfono, WhatsApp, correo y dirección de ejemplo por los datos públicos definitivos.
-- Agregar las URL reales de las redes sociales que use la asociación.
-- Eliminar o reemplazar el documento de prueba si no corresponde al Estatuto.
-
-La guía de operación y recuperación está en:
+## Estructura
 
 ```text
-GUIA-PENDIENTE-CMS.txt
+.github/workflows/deploy.yml  Publicación automática
+oauth-proxy/                  Worker OAuth de Cloudflare
+public/admin/                 Panel y configuración de Decap CMS
+public/content/               Datos editables del sitio
+public/uploads/               Archivos cargados desde el CMS
+src/lib/                      Lectura y actualización del contenido
+src/pages/                    Páginas públicas
+src/types/                    Tipos TypeScript
 ```
 
-La documentación técnica adicional de OAuth está en:
-
-```text
-docs/decap-github-auth.md
-```
+La documentación técnica del proxy OAuth permanece en `docs/decap-github-auth.md`.

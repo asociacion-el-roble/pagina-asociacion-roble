@@ -22,36 +22,52 @@ export function useContent<T>(path: string, fallback: T) {
   useEffect(() => {
     let active = true;
 
-    const contentUrl = new URL(assetUrl(path), window.location.href);
-    contentUrl.searchParams.set("v", Date.now().toString());
+    function loadContent() {
+      const contentUrl = new URL(assetUrl(path), window.location.href);
+      contentUrl.searchParams.set("v", Date.now().toString());
 
-    fetch(contentUrl, { cache: "no-store" })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`No se pudo cargar ${path}`);
-        }
+      fetch(contentUrl, { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`No se pudo cargar ${path}`);
+          }
 
-        return response.json() as Promise<T>;
-      })
-      .then((content) => {
-        if (active) {
-          setData(content);
-          setError(false);
-        }
-      })
-      .catch(() => {
-        if (active) {
-          setError(true);
-        }
-      })
-      .finally(() => {
-        if (active) {
-          setLoading(false);
-        }
-      });
+          return response.json() as Promise<T>;
+        })
+        .then((content) => {
+          if (active) {
+            setData(content);
+            setError(false);
+          }
+        })
+        .catch(() => {
+          if (active) {
+            setError(true);
+          }
+        })
+        .finally(() => {
+          if (active) {
+            setLoading(false);
+          }
+        });
+    }
+
+    function refreshVisibleContent() {
+      if (document.visibilityState === "visible") {
+        loadContent();
+      }
+    }
+
+    loadContent();
+    const refreshInterval = window.setInterval(loadContent, 30_000);
+    window.addEventListener("focus", loadContent);
+    document.addEventListener("visibilitychange", refreshVisibleContent);
 
     return () => {
       active = false;
+      window.clearInterval(refreshInterval);
+      window.removeEventListener("focus", loadContent);
+      document.removeEventListener("visibilitychange", refreshVisibleContent);
     };
   }, [path]);
 
