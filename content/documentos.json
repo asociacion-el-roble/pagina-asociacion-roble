@@ -1,27 +1,27 @@
 {
   "estatuto": {
-    "title": "Prueba",
-    "file": "/uploads/bitácora-tcu-johel-mena.docx"
+    "title": "Estatuto",
+    "file": "https://docs.google.com/document/d/1Hvc6xtaWUFgbl8WHtb_lZ1v-941nVj3H/edit?usp=sharing"
   },
   "actaConstitutiva": {
     "title": "Acta Constitutiva",
-    "file": ""
+    "file": "https://drive.google.com/file/d/1CALat6BM6anELVoj2HOo_fzCVzXirdFY/view?usp=sharing"
   },
   "planTrabajo": [
     {
       "title": "Plan de Trabajo 2024",
       "year": "2024",
-      "file": ""
+      "file": "https://docs.google.com/document/d/1068LeGDlCDDnhqm_bMtGKVJs1TS3e02g/edit?usp=sharing"
     },
     {
       "title": "Plan de Trabajo 2025",
       "year": "2025",
-      "file": ""
+      "file": "https://docs.google.com/document/d/10BX7zS6Ahhsj6gqOHamZGASZBzucc5na/edit?usp=sharing"
     },
     {
       "title": "Plan de Trabajo 2026",
       "year": "2026",
-      "file": ""
+      "file": "https://docs.google.com/document/d/1pnALeZP-WVk5G2HwPwZU1a2DHmD82qy0/edit?usp=sharing"
     }
   ]
 }
