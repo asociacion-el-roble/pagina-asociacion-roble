@@ -1,3 +1,11 @@
 {
-  "items": []
+  "items": [
+    {
+      "title": "PRUEBA CMS - Actividad",
+      "date": "2099-12-31",
+      "time": "6:00 p.m.",
+      "place": "Salon comunal",
+      "description": "Elemento temporal para comprobar la publicacion automatica."
+    }
+  ]
 }
