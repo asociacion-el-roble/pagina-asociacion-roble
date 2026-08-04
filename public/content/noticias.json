@@ -11,6 +11,12 @@
       "date": "2026-04-05",
       "summary": "La asociacion comparte avisos importantes y actividades para que las personas vecinas se mantengan informadas.",
       "image": "/galeria/foto2.avif"
+    },
+    {
+      "title": "PRUEBA CMS - Noticia",
+      "date": "2099-12-31",
+      "summary": "Elemento temporal para comprobar la publicacion automatica.",
+      "image": "/uploads/captura-de-pantalla-2025-06-14-151653.png"
     }
   ]
 }

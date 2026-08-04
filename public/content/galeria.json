@@ -7,6 +7,10 @@
     {
       "title": "Trabajo en comunidad",
       "image": "/galeria/foto2.avif"
+    },
+    {
+      "title": "PRUEBA CMS - Foto",
+      "image": "/uploads/captura-de-pantalla-2025-06-14-151653.png"
     }
   ],
   "videos": [
@@ -33,6 +37,10 @@
     {
       "title": "Cambio climatico y contaminacion ambiental",
       "url": "https://drive.google.com/file/d/1dOnNvUFzFfvBgxF-jdvoRznIzlR0eoom/view?usp=sharing"
+    },
+    {
+      "title": "PRUEBA CMS - Video",
+      "url": "https://drive.google.com/file/d/1effMzIpC5jqYpn2mR4XEvJ5WzkjHv3nn/view?usp=drive_link"
     }
   ]
 }
