@@ -66,6 +66,16 @@ export type GalleryItem = {
   image: string;
 };
 
+export type GalleryVideo = {
+  title: string;
+  url: string;
+};
+
+export type GalleryContent = {
+  items: GalleryItem[];
+  videos: GalleryVideo[];
+};
+
 export type CalendarEvent = {
   title: string;
   date: string;

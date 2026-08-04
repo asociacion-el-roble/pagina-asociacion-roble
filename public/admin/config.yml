@@ -125,6 +125,13 @@ collections:
             fields:
               - { name: "title", label: "Titulo", widget: "string" }
               - { name: "image", label: "Imagen", widget: "image" }
+          - label: "Videos"
+            name: "videos"
+            widget: "list"
+            required: false
+            fields:
+              - { name: "title", label: "Titulo", widget: "string" }
+              - { name: "url", label: "Enlace publico de Google Drive", widget: "string" }
 
       - name: "calendario"
         label: "Calendario de actividades"
