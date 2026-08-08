@@ -1,9 +1,14 @@
 {
-  "title": "Asociacion de Desarrollo El Roble",
-  "subtitle": "Informacion comunal, documentos oficiales, actividades y contacto para el barrio El Roble.",
-  "welcome": "Bienvenidos a ADE Del Roble. Aqui encuentras noticias, eventos, proyectos, actas y documentos importantes de la comunidad.",
-  "mission": "Trabajar por el bienestar comunal de El Roble mediante proyectos, organizacion vecinal y apoyo a iniciativas que mejoren la calidad de vida.",
-  "vision": "Ser una asociacion cercana, transparente y participativa, reconocida por impulsar el desarrollo integral del barrio El Roble.",
+  "contact": {
+    "address": "Primera Etapa, el Roble de Puntarenas",
+    "phone": "89967447",
+    "email": "adedelroble@gmail.com",
+    "whatsapp": "50689967447",
+    "facebook": "https://www.facebook.com/share/1BfUtou4ME/?mibextid=wwXIfr",
+    "instagram": "https://www.instagram.com/adedelroble?igsh=YmQ2MTFiNmxoM2V2",
+    "youtube": "",
+    "tiktok": "https://www.tiktok.com/@ade.del.roble?_r=1&_t=ZS-98Hrhjvee6G"
+  },
   "values": [
     "Transparencia",
     "Servicio comunal",
@@ -11,16 +16,11 @@
     "Respeto",
     "Responsabilidad"
   ],
+  "welcome": "Bienvenidos a ADE Del Roble. Aqui encuentras noticias, eventos, proyectos, actas y documentos importantes de la comunidad.",
+  "vision": "Ser una asociacion cercana, transparente y participativa, reconocida por impulsar el desarrollo integral del barrio El Roble.",
+  "mission": "Trabajar por el bienestar comunal de El Roble mediante proyectos, organizacion vecinal y apoyo a iniciativas que mejoren la calidad de vida.",
   "tcuTitle": "Trabajo Comunal Universitario",
   "tcuDescription": "En ADE del Roble acompaniamos a estudiantes durante su Trabajo Comunal Universitario, brindando orientacion, espacios de apoyo y oportunidades para aportar valor a la comunidad.",
-  "contact": {
-    "address": "Barrio El Roble",
-    "phone": "6075-1379",
-    "email": "asociacionroble@gmail.com",
-    "whatsapp": "50660751379",
-    "facebook": "https://www.facebook.com/share/1BfUtou4ME/?mibextid=wwXIfr",
-    "instagram": "https://www.instagram.com/adedelroble?igsh=YmQ2MTFiNmxoM2V2",
-    "youtube": "",
-    "tiktok": "https://www.tiktok.com/@ade.del.roble?_r=1&_t=ZS-98Hrhjvee6G"
-  }
+  "subtitle": "Informacion comunal, documentos oficiales, actividades y contacto para el barrio El Roble.",
+  "title": "Asociacion de Desarrollo El Roble"
 }
